@@ -29,6 +29,7 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 .notice{padding:12px 14px;border-radius:14px;background:#fff5d8;border:1px solid #efd48a;color:#6f5200}.offline{font-weight:800;color:var(--warn)}
 @media(max-width:700px){.wrap{padding:16px}.login{margin:3vh auto;width:96vw}.login .brand{font-size:27px}.login .sub{font-size:16px}.two,.three{grid-template-columns:1fr}.orbit{width:min(96vw,560px)}.node{width:29%;font-size:12px}.center{inset:34%;font-size:13px}.person,.claim{align-items:flex-start;flex-direction:column}.toolbar{display:grid}.toolbar>*{width:100%}}
 .simple-home{max-width:620px;margin:18px auto 40px}.simple-menu h2{margin:0 0 6px;color:var(--green);font-size:clamp(24px,5vw,32px)}.menu-btn{width:100%;min-height:74px;margin-top:12px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:left;color:var(--green);display:flex;flex-direction:column;justify-content:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,.04)}.menu-btn strong{font-size:18px}.menu-btn span{font-size:14px;color:var(--muted);font-weight:400}@media(max-width:700px){.simple-home{margin:8px auto}.simple-menu{padding:16px}.menu-btn{min-height:70px;margin-top:10px}}
+.new-feature{border:3px solid var(--gold)!important;background:#fff8d9!important;box-shadow:0 0 0 4px rgba(202,168,94,.18),0 8px 20px rgba(0,0,0,.08)!important}.new-feature em{font-style:normal;font-size:11px;background:var(--red);color:#fff;padding:4px 7px;border-radius:999px;margin-left:6px}.new-feature.seen{border:1px solid var(--line)!important;background:#fff!important;box-shadow:0 4px 12px rgba(0,0,0,.04)!important}.new-feature.seen em{display:none}
 </style>
 </head>
 <body>
@@ -51,9 +52,9 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 <button class="menu-btn" onclick="openModule('scanner')"><strong>QR SCANNER</strong><span>Open an attendee digital pass</span></button>
 <button class="menu-btn" onclick="openModule('claims')"><strong>DIGITAL CLAIMS</strong><span>Snack, lunch and patient raffle</span></button>
 <button class="menu-btn" onclick="openModule('raffle')"><strong>RAFFLE</strong><span>Patients / PD Warriors only</span></button>
-<button class="menu-btn" onclick="openModule('register')"><strong>ADD ATTENDEE</strong><span>Register a patient or companion</span></button>
-<button class="menu-btn" onclick="openModule('backup')"><strong>BACKUP / RESTORE</strong><span>Protect the offline event database</span></button>
-<button class="menu-btn" onclick="openModule('reports')"><strong>REPORTS</strong><span>Claims, audit history and event totals</span></button>
+<button class="menu-btn new-feature" data-feature="register" onclick="markSeen('register');openModule('register')"><strong>ADD ATTENDEE <em>NEW</em></strong><span>Register a patient or companion</span></button>
+<button class="menu-btn new-feature" data-feature="backup" onclick="markSeen('backup');openModule('backup')"><strong>BACKUP / RESTORE <em>NEW</em></strong><span>Protect the offline event database</span></button>
+<button class="menu-btn new-feature" data-feature="reports" onclick="markSeen('reports');openModule('reports')"><strong>REPORTS <em>UPDATED</em></strong><span>Claims, audit history and event totals</span></button>
 </div></div></div></section>
 
 <section id="module" class="screen"><div class="wrap">
@@ -73,8 +74,8 @@ let data=JSON.parse(localStorage.getItem('pdw2027_data')||'null')||seed;
 let audit=JSON.parse(localStorage.getItem('pdw2027_audit')||'[]');
 function save(){localStorage.setItem('pdw2027_data',JSON.stringify(data));localStorage.setItem('pdw2027_audit',JSON.stringify(audit))}
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function login(){staff=(document.getElementById('staffName').value||'Staff').trim(); if(document.getElementById('pin').value!=='2027'){alert('Incorrect demo PIN');return} localStorage.setItem('pdw2027_staff',staff);show('home')}
-function logout(){show('login')} function goHome(){show('home')}
+function login(){staff=(document.getElementById('staffName').value||'Staff').trim(); if(document.getElementById('pin').value!=='2027'){alert('Incorrect demo PIN');return} localStorage.setItem('pdw2027_staff',staff);show('home');applyHighlights()}
+function logout(){show('login')} function goHome(){show('home');applyHighlights()} function markSeen(k){localStorage.setItem('pdw_seen_'+k,'1');applyHighlights()} function applyHighlights(){document.querySelectorAll('[data-feature]').forEach(el=>el.classList.toggle('seen',localStorage.getItem('pdw_seen_'+el.dataset.feature)==='1'))}
 window.addEventListener('online',net);window.addEventListener('offline',net);function net(){document.getElementById('netStatus').textContent=navigator.onLine?'ONLINE • OFFLINE CACHE READY':'OFFLINE READY'};net();
 function openModule(name){show('module');const titles={attendees:'ATTENDEES',release:'QR RELEASE',scanner:'QR SCANNER',claims:'DIGITAL CLAIMS',raffle:'RAFFLE',register:'ADD ATTENDEE',backup:'BACKUP / RESTORE',reports:'REPORTS'};document.getElementById('moduleTitle').textContent=titles[name];render(name)}
 function personCard(p,click=true){return `<div class="person ${selected===p.id?'selected':''}" ${click?`onclick="selected='${p.id}';render(currentModule)"`:''}><div><strong>${p.name}</strong><div class="sub">${p.id}</div></div><div><span class="badge ${p.type}">${p.type==='patient'?'PATIENT / PD WARRIOR':'COMPANION'}</span><div class="sub">${p.released?'QR RELEASED':'QR NOT RELEASED'} • ${p.checkedIn?'CHECKED IN':'NOT CHECKED IN'}${p.linkedPatient?' • Linked: '+p.linkedPatient:''}</div></div></div>`}
