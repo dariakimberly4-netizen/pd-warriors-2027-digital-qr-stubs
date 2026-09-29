@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173f32">
+<title>PD Warriors 2027 Digital QR Stubs</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--green:#173f32;--red:#b4232f;--gold:#caa85e;--ivory:#fffaf0;--ink:#1f2937;--muted:#6b7280;--line:#e5dcc8;--ok:#166534;--warn:#92400e}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--ivory);color:var(--ink);min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-height:100vh}.screen.active{display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0}
+.brand{font-weight:800;color:var(--green);font-size:clamp(18px,3vw,28px)}.sub{color:var(--muted);font-size:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.login{max-width:430px;margin:8vh auto}.field{display:grid;gap:8px;margin:14px 0}.field input,.field select{padding:14px 16px;border:1px solid #cfc7b8;border-radius:14px;min-height:52px}
+.btn{border:0;border-radius:16px;padding:14px 18px;min-height:52px;font-weight:800}.btn.primary{background:var(--green);color:#fff}.btn.red{background:var(--red);color:#fff}.btn.light{background:#fff;border:1px solid var(--line);color:var(--green)}.btn.full{width:100%}
+.orbit-area{min-height:calc(100vh - 120px);display:grid;place-items:center;overflow:hidden}.orbit{position:relative;width:min(88vw,680px);aspect-ratio:1}
+.center{position:absolute;inset:35%;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--green);color:#fff;padding:18px;border:4px solid var(--gold);font-weight:900}
+.node{position:absolute;width:26%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:10px;background:#fff;border:2px solid var(--gold);color:var(--green);font-weight:900;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.n1{top:0;left:37%}.n2{top:20%;right:0}.n3{bottom:12%;right:5%}.n4{bottom:0;left:37%}.n5{bottom:12%;left:5%}.n6{top:20%;left:0}
+.grid{display:grid;gap:14px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.big{font-size:28px;font-weight:900;color:var(--green)}
+.list{display:grid;gap:10px}.person{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.person.selected{outline:3px solid var(--gold)}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;background:#f4efe4}.badge.patient{color:var(--green)}.badge.companion{color:var(--red)}
+.claims{display:grid;gap:12px}.claim{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.status{font-weight:900}.available{color:var(--ok)}.claimed{color:var(--muted)}.noteligible{color:var(--red)}
+.qrbox{display:grid;place-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.qr{width:220px;height:220px;display:grid;grid-template-columns:repeat(21,1fr);gap:1px;background:#fff;padding:8px;border:1px solid #ddd}.qr i{background:#fff}.qr i.on{background:#111}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap}.search{flex:1;min-width:200px;padding:14px 16px;border:1px solid #cfc7b8;border-radius:14px;min-height:52px}
+.notice{padding:12px 14px;border-radius:14px;background:#fff5d8;border:1px solid #efd48a;color:#6f5200}.offline{font-weight:800;color:var(--warn)}
+@media(max-width:700px){.wrap{padding:14px}.two,.three{grid-template-columns:1fr}.orbit{width:min(96vw,560px)}.node{width:29%;font-size:12px}.center{inset:34%;font-size:13px}.person,.claim{align-items:flex-start;flex-direction:column}.toolbar{display:grid}.toolbar>*{width:100%}}
+</style>
+</head>
+<body>
+<section id="login" class="screen active"><div class="wrap"><div class="login card">
+<div class="brand">PD Warriors Philippines</div><div class="sub">GET TOGETHER 2027 — Registration Committee</div>
+<div class="field"><label>Staff Name</label><input id="staffName" value="Donna" autocomplete="name"></div>
+<div class="field"><label>One-Tap Demo PIN</label><input id="pin" inputmode="numeric" value="2027"></div>
+<button class="btn primary full" onclick="login()">LOGIN</button>
+<p class="sub">Works offline after first load. Event claims are stored on this device.</p>
+</div></div></section>
+
+<section id="home" class="screen"><div class="wrap">
+<div class="top"><div><div class="brand">GET TOGETHER 2027</div><div class="sub">Digital QR & Claims • <span id="netStatus" class="offline">OFFLINE READY</span></div></div><button class="btn light" onclick="logout()">Logout</button></div>
+<div class="orbit-area"><div class="orbit">
+<button class="node n1" onclick="openModule('attendees')">ATTENDEES</button>
+<button class="node n2" onclick="openModule('release')">QR RELEASE</button>
+<button class="node n3" onclick="openModule('scanner')">QR SCANNER</button>
+<button class="node n4" onclick="openModule('claims')">DIGITAL CLAIMS</button>
+<button class="node n5" onclick="openModule('raffle')">RAFFLE</button>
+<button class="node n6" onclick="openModule('reports')">REPORTS</button>
+<div class="center">REGISTRATION<br>COMMITTEE</div>
+</div></div></div></section>
+
+<section id="module" class="screen"><div class="wrap">
+<div class="top"><button class="btn light" onclick="goHome()">← BACK TO ORBIT</button><div id="moduleTitle" class="brand"></div></div>
+<div id="moduleBody"></div>
+</div></section>
+
+<script>
+const seed=[
+{id:'PD2027-P-0001',name:'Juan Dela Cruz',type:'patient',released:false,snack:false,lunch:false,raffle:false},
+{id:'PD2027-C-0001',name:'Maria Dela Cruz',type:'companion',released:false,snack:false,lunch:false,raffle:null},
+{id:'PD2027-P-0002',name:'Ana Santos',type:'patient',released:false,snack:false,lunch:false,raffle:false},
+{id:'PD2027-C-0002',name:'Leo Santos',type:'companion',released:false,snack:false,lunch:false,raffle:null}
+];
+let staff='Donna', selected=null;
+let data=JSON.parse(localStorage.getItem('pdw2027_data')||'null')||seed;
+let audit=JSON.parse(localStorage.getItem('pdw2027_audit')||'[]');
+function save(){localStorage.setItem('pdw2027_data',JSON.stringify(data));localStorage.setItem('pdw2027_audit',JSON.stringify(audit))}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function login(){staff=(document.getElementById('staffName').value||'Staff').trim(); if(document.getElementById('pin').value!=='2027'){alert('Incorrect demo PIN');return} localStorage.setItem('pdw2027_staff',staff);show('home')}
+function logout(){show('login')} function goHome(){show('home')}
+window.addEventListener('online',net);window.addEventListener('offline',net);function net(){document.getElementById('netStatus').textContent=navigator.onLine?'ONLINE • OFFLINE CACHE READY':'OFFLINE READY'};net();
+function openModule(name){show('module');const titles={attendees:'ATTENDEES',release:'QR RELEASE',scanner:'QR SCANNER',claims:'DIGITAL CLAIMS',raffle:'RAFFLE',reports:'REPORTS'};document.getElementById('moduleTitle').textContent=titles[name];render(name)}
+function personCard(p,click=true){return `<div class="person ${selected===p.id?'selected':''}" ${click?`onclick="selected='${p.id}';render(currentModule)"`:''}><div><strong>${p.name}</strong><div class="sub">${p.id}</div></div><span class="badge ${p.type}">${p.type==='patient'?'PATIENT / PD WARRIOR':'COMPANION'}</span></div>`}
+let currentModule='attendees';function render(name){currentModule=name;const b=document.getElementById('moduleBody');if(name==='attendees')b.innerHTML=attendeesUI();if(name==='release')b.innerHTML=releaseUI();if(name==='scanner')b.innerHTML=scannerUI();if(name==='claims')b.innerHTML=claimsUI();if(name==='raffle')b.innerHTML=raffleUI();if(name==='reports')b.innerHTML=reportsUI()}
+function attendeesUI(){return `<div class="toolbar"><input class="search" id="q" placeholder="Search name or attendee ID" oninput="filterPeople(this.value)"></div><div id="people" class="list" style="margin-top:14px">${data.map(p=>personCard(p,false)).join('')}</div>`}
+function filterPeople(q){q=q.toLowerCase();document.getElementById('people').innerHTML=data.filter(p=>p.name.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)).map(p=>personCard(p,false)).join('')}
+function releaseUI(){const p=data.find(x=>x.id===selected);return `<div class="notice">Select exactly one attendee. Patient and companion always have separate QR codes.</div><div class="list" style="margin-top:14px">${data.map(x=>personCard(x)).join('')}</div>${p?`<div class="card" style="margin-top:16px"><h3>${p.name}</h3><p>${p.id} • ${p.type==='patient'?'PATIENT / PD WARRIOR':'COMPANION'}</p><button class="btn primary full" onclick="releaseQR('${p.id}')">${p.released?'QR RELEASED ✓':'RELEASE DIGITAL QR'}</button>${p.released?qrMarkup(p.id):''}</div>`:''}`}
+function releaseQR(id){const p=data.find(x=>x.id===id);if(!p.released){p.released=true;audit.push({time:new Date().toISOString(),staff,action:'QR_RELEASE',id});save()}render('release')}
+function scannerUI(){return `<div class="card"><div class="field"><label>Scan / Enter Attendee ID</label><input id="scanId" placeholder="PD2027-P-0001"></div><button class="btn primary full" onclick="manualScan()">OPEN DIGITAL PASS</button></div><div id="scanResult" style="margin-top:14px"></div>`}
+function manualScan(){const id=document.getElementById('scanId').value.trim().toUpperCase();const p=data.find(x=>x.id===id);document.getElementById('scanResult').innerHTML=p?passUI(p):'<div class="notice">Attendee not found.</div>'}
+function passUI(p){return `<div class="card"><h2>${p.name}</h2><p>${p.id} • ${p.type==='patient'?'PATIENT / PD WARRIOR':'COMPANION'}</p><div class="claims">${claimRow(p,'snack','SNACK')}${claimRow(p,'lunch','LUNCH')}${p.type==='patient'?claimRow(p,'raffle','RAFFLE'):'<div class="claim"><strong>RAFFLE</strong><span class="status noteligible">NOT ELIGIBLE</span></div>'}</div></div>`}
+function claimRow(p,key,label){const claimed=p[key]===true;return `<div class="claim"><div><strong>${label}</strong><div class="sub">${claimed?'Claimed already':'Ready to claim'}</div></div><button class="btn ${claimed?'light':'primary'}" ${claimed?'disabled':''} onclick="claim('${p.id}','${key}')">${claimed?'CLAIMED ✓':'CLAIM '+label}</button></div>`}
+function claim(id,key){const p=data.find(x=>x.id===id);if(!p||p[key]===null)return;if(p[key]){alert('ALREADY CLAIMED');return} if(!confirm(`Confirm ${key.toUpperCase()} release to ${p.name}?`))return;p[key]=true;audit.push({time:new Date().toISOString(),staff,action:'CLAIM_'+key.toUpperCase(),id});save();render(currentModule);const sr=document.getElementById('scanResult');if(sr)sr.innerHTML=passUI(p)}
+function claimsUI(){return `<div class="grid two">${data.map(p=>passUI(p)).join('')}</div>`}
+function raffleUI(){const pts=data.filter(p=>p.type==='patient');return `<div class="notice">Raffle is for PATIENTS / PD WARRIORS only. Companions are excluded automatically.</div><div class="list" style="margin-top:14px">${pts.map(p=>`<div class="person"><div><strong>${p.name}</strong><div class="sub">${p.id}</div></div><span class="status ${p.raffle?'claimed':'available'}">${p.raffle?'ENTERED ✓':'ELIGIBLE'}</span></div>`).join('')}</div>`}
+function reportsUI(){const pts=data.filter(p=>p.type==='patient'), comps=data.filter(p=>p.type==='companion');const c=(arr,k)=>arr.filter(x=>x[k]===true).length;return `<div class="grid three"><div class="stat"><div class="sub">Patients</div><div class="big">${pts.length}</div></div><div class="stat"><div class="sub">Companions</div><div class="big">${comps.length}</div></div><div class="stat"><div class="sub">QR Released</div><div class="big">${data.filter(x=>x.released).length}</div></div><div class="stat"><div class="sub">Patient Snacks</div><div class="big">${c(pts,'snack')}</div></div><div class="stat"><div class="sub">Companion Snacks</div><div class="big">${c(comps,'snack')}</div></div><div class="stat"><div class="sub">Raffle Entries</div><div class="big">${c(pts,'raffle')}</div></div></div><div class="card" style="margin-top:16px"><button class="btn primary" onclick="exportCSV()">EXPORT CLAIM RECORDS</button><div class="sub" style="margin-top:10px">Exports local offline audit history as CSV.</div></div>`}
+function exportCSV(){const rows=[['time','staff','action','attendee_id'],...audit.map(x=>[x.time,x.staff,x.action,x.id])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='pd-warriors-2027-claims.csv';a.click();URL.revokeObjectURL(a.href)}
+function qrMarkup(seed){let n=0;for(const ch of seed)n=(n*31+ch.charCodeAt(0))>>>0;let html='<div class="qrbox"><div class="qr">';for(let i=0;i<441;i++){n=(1664525*n+1013904223)>>>0;html+='<i class="'+((n>>>30)&1?'on':'')+'"></i>'}return html+'</div><div class="sub" style="margin-top:10px">'+seed+'</div></div>'}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');
+</script>
+</body></html>
