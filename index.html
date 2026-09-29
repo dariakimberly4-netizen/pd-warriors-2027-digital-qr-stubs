@@ -28,6 +28,7 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 .toolbar{display:flex;gap:10px;flex-wrap:wrap}.search{flex:1;min-width:200px;padding:14px 16px;border:1px solid #cfc7b8;border-radius:14px;min-height:52px}
 .notice{padding:12px 14px;border-radius:14px;background:#fff5d8;border:1px solid #efd48a;color:#6f5200}.offline{font-weight:800;color:var(--warn)}
 @media(max-width:700px){.wrap{padding:16px}.login{margin:3vh auto;width:96vw}.login .brand{font-size:27px}.login .sub{font-size:16px}.two,.three{grid-template-columns:1fr}.orbit{width:min(96vw,560px)}.node{width:29%;font-size:12px}.center{inset:34%;font-size:13px}.person,.claim{align-items:flex-start;flex-direction:column}.toolbar{display:grid}.toolbar>*{width:100%}}
+.simple-home{max-width:620px;margin:18px auto 40px}.simple-menu h2{margin:0 0 6px;color:var(--green);font-size:clamp(24px,5vw,32px)}.menu-btn{width:100%;min-height:74px;margin-top:12px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:left;color:var(--green);display:flex;flex-direction:column;justify-content:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,.04)}.menu-btn strong{font-size:18px}.menu-btn span{font-size:14px;color:var(--muted);font-weight:400}@media(max-width:700px){.simple-home{margin:8px auto}.simple-menu{padding:16px}.menu-btn{min-height:70px;margin-top:10px}}
 </style>
 </head>
 <body>
@@ -41,14 +42,16 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 
 <section id="home" class="screen"><div class="wrap">
 <div class="top"><div><div class="brand">GET TOGETHER 2027</div><div class="sub">Digital QR & Claims • <span id="netStatus" class="offline">OFFLINE READY</span></div></div><button class="btn light" onclick="logout()">Logout</button></div>
-<div class="orbit-area"><div class="orbit">
-<button class="node n1" onclick="openModule('attendees')">ATTENDEES</button>
-<button class="node n2" onclick="openModule('release')">QR RELEASE</button>
-<button class="node n3" onclick="openModule('scanner')">QR SCANNER</button>
-<button class="node n4" onclick="openModule('claims')">DIGITAL CLAIMS</button>
-<button class="node n5" onclick="openModule('raffle')">RAFFLE</button>
-<button class="node n6" onclick="openModule('reports')">REPORTS</button>
-<div class="center">REGISTRATION<br>COMMITTEE</div>
+<div class="simple-home">
+<div class="card simple-menu">
+<h2>Registration Committee</h2>
+<p class="sub">Choose what you need to do.</p>
+<button class="menu-btn" onclick="openModule('attendees')"><strong>ATTENDEES</strong><span>View and search attendees</span></button>
+<button class="menu-btn" onclick="openModule('release')"><strong>QR RELEASE</strong><span>Release a digital QR pass</span></button>
+<button class="menu-btn" onclick="openModule('scanner')"><strong>QR SCANNER</strong><span>Open an attendee digital pass</span></button>
+<button class="menu-btn" onclick="openModule('claims')"><strong>DIGITAL CLAIMS</strong><span>Snack, lunch and patient raffle</span></button>
+<button class="menu-btn" onclick="openModule('raffle')"><strong>RAFFLE</strong><span>Patients / PD Warriors only</span></button>
+<button class="menu-btn" onclick="openModule('reports')"><strong>REPORTS</strong><span>Claims and event totals</span></button>
 </div></div></div></section>
 
 <section id="module" class="screen"><div class="wrap">
