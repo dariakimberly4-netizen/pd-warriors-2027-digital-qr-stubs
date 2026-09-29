@@ -31,6 +31,7 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 .simple-home{max-width:620px;margin:18px auto 40px}.simple-menu h2{margin:0 0 6px;color:var(--green);font-size:clamp(24px,5vw,32px)}.menu-btn{width:100%;min-height:74px;margin-top:12px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:left;color:var(--green);display:flex;flex-direction:column;justify-content:center;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,.04)}.menu-btn strong{font-size:18px}.menu-btn span{font-size:14px;color:var(--muted);font-weight:400}@media(max-width:700px){.simple-home{margin:8px auto}.simple-menu{padding:16px}.menu-btn{min-height:70px;margin-top:10px}}
 .new-feature{border:3px solid var(--gold)!important;background:#fff8d9!important;box-shadow:0 0 0 4px rgba(202,168,94,.18),0 8px 20px rgba(0,0,0,.08)!important}.new-feature em{font-style:normal;font-size:11px;background:var(--red);color:#fff;padding:4px 7px;border-radius:999px;margin-left:6px}.new-feature.seen{border:1px solid var(--line)!important;background:#fff!important;box-shadow:0 4px 12px rgba(0,0,0,.04)!important}.new-feature.seen em{display:none}
 .submenu{display:none;margin:0 4px 12px;padding:10px;background:#f7f7f4;border:1px solid var(--line);border-radius:0 0 14px 14px}.submenu.open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.submenu button{min-height:48px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--green);font-weight:700;text-align:left;padding:10px 12px}@media(max-width:520px){.submenu.open{grid-template-columns:1fr}}
+.orbit-wrap{max-width:1100px;height:100vh;overflow:hidden}.orbit-area{height:calc(100vh - 100px);min-height:0}.orbit{width:min(78vh,88vw,680px)}.node{min-width:92px;min-height:92px;font-size:clamp(13px,2vw,18px)}.center{font-size:clamp(13px,2vw,19px)}@media(max-width:700px){.orbit-wrap{padding:10px}.top{padding:6px 0}.orbit-area{height:calc(100vh - 88px)}.orbit{width:min(82vh,94vw)}.node{width:27%;font-size:clamp(11px,3vw,15px);padding:6px}.center{inset:34%;padding:8px}}
 </style>
 </head>
 <body>
@@ -42,41 +43,16 @@ button,input,select{font:inherit}button{cursor:pointer}.screen{display:none;min-
 <p class="sub">Works offline after first load. Event claims are stored on this device.</p>
 </div></div></section>
 
-<section id="home" class="screen"><div class="wrap">
-<div class="top"><div><div class="brand">GET TOGETHER 2027</div><div class="sub">Digital QR & Claims • <span id="netStatus" class="offline">OFFLINE READY</span></div></div><button class="btn light" onclick="logout()">Logout</button></div>
-<div class="simple-home">
-<div class="card simple-menu">
-<h2>Registration Committee</h2>
-<p class="sub">Choose a main menu. Open it to see its submenus.</p>
-
-<button class="menu-btn new-feature" data-feature="registration" onclick="toggleSub('registration')"><strong>1. REGISTRATION <em>NEW</em></strong><span>Attendee registration and assignment</span></button>
-<div class="submenu" id="sub-registration">
-<button onclick="openModule('attendees')">Attendee List</button><button onclick="openModule('attendees')">Search Attendee</button><button onclick="openModule('register')">Walk-In Registration</button><button onclick="openModule('assignment')">Participant / Companion Assignment</button>
-</div>
-
-<button class="menu-btn new-feature" data-feature="qrrelease" onclick="toggleSub('qrrelease')"><strong>2. QR PASS RELEASE <em>UPDATED</em></strong><span>Generate, view and release QR passes</span></button>
-<div class="submenu" id="sub-qrrelease">
-<button onclick="openModule('release')">Generate QR</button><button onclick="openModule('release')">View QR</button><button onclick="openModule('release')">Print QR</button><button onclick="openModule('release')">Reprint QR</button><button onclick="openModule('release')">Release Status</button>
-</div>
-
-<button class="menu-btn new-feature" data-feature="patientstubs" onclick="toggleSub('patientstubs')"><strong>3. PATIENT STUBS <em>NEW</em></strong><span>Snack • Lunch • Raffle</span></button>
-<div class="submenu" id="sub-patientstubs"><button onclick="openModule('patientstubs')">Snack</button><button onclick="openModule('patientstubs')">Lunch</button><button onclick="openModule('raffle')">Raffle</button></div>
-
-<button class="menu-btn new-feature" data-feature="companionstubs" onclick="toggleSub('companionstubs')"><strong>4. COMPANION STUBS <em>NEW</em></strong><span>Snack • Lunch only</span></button>
-<div class="submenu" id="sub-companionstubs"><button onclick="openModule('companionstubs')">Snack</button><button onclick="openModule('companionstubs')">Lunch</button></div>
-
-<button class="menu-btn new-feature" data-feature="scannerclaim" onclick="toggleSub('scannerclaim')"><strong>5. QR SCANNER / CLAIM <em>UPDATED</em></strong><span>Scan and validate digital claims</span></button>
-<div class="submenu" id="sub-scannerclaim"><button onclick="openModule('scanner')">Scan QR</button><button onclick="openModule('claims')">Snack Claim</button><button onclick="openModule('claims')">Lunch Claim</button><button onclick="openModule('raffle')">Raffle Validation</button></div>
-
-<button class="menu-btn new-feature" data-feature="documents" onclick="toggleSub('documents')"><strong>6. DOCUMENTS <em>NEW</em></strong><span>PWD, Senior ID and authorization records</span></button>
-<div class="submenu" id="sub-documents"><button onclick="openModule('documents')">PWD ID</button><button onclick="openModule('documents')">Senior Citizen ID</button><button onclick="openModule('documents')">Authorization Letter</button><button onclick="openModule('documents')">Mark Received</button><button onclick="openModule('documents')">View Documents</button></div>
-
-<button class="menu-btn new-feature" data-feature="records" onclick="toggleSub('records')"><strong>7. RECORDS & REPORTS <em>UPDATED</em></strong><span>Attendees, QR status, claims and exports</span></button>
-<div class="submenu" id="sub-records"><button onclick="openModule('attendees')">All Attendees</button><button onclick="openModule('reports')">Patients</button><button onclick="openModule('reports')">Companions</button><button onclick="openModule('reports')">Released QR</button><button onclick="openModule('reports')">Unreleased QR</button><button onclick="openModule('reports')">Claimed / Unclaimed</button><button onclick="openModule('reports')">Export Report</button></div>
-
-<button class="menu-btn new-feature" data-feature="offline" onclick="toggleSub('offline')"><strong>8. OFFLINE & BACKUP <em>UPDATED</em></strong><span>Offline data, import, export and restore</span></button>
-<div class="submenu" id="sub-offline"><button onclick="openModule('backup')">Offline Status</button><button onclick="openModule('backup')">Save Local Data</button><button onclick="openModule('import')">Import Attendee List</button><button onclick="openModule('backup')">Export Backup</button><button onclick="openModule('backup')">Restore Backup</button></div>
-</div></div></section>
+<section id="home" class="screen"><div class="wrap orbit-wrap">
+<div class="top"><div><div class="brand">GET TOGETHER 2027</div><div class="sub">Registration Committee • Digital QR & Claims • <span id="netStatus" class="offline">OFFLINE READY</span></div></div><button class="btn light" onclick="logout()">Logout</button></div>
+<div class="orbit-area"><div class="orbit">
+<button class="node n1" onclick="openModule('attendees')">ATTENDEES</button>
+<button class="node n2" onclick="openModule('release')">QR<br>RELEASE</button>
+<button class="node n3" onclick="openModule('scanner')">QR<br>SCANNER</button>
+<button class="node n4" onclick="openModule('claims')">DIGITAL<br>CLAIMS</button>
+<button class="node n5" onclick="openModule('raffle')">RAFFLE</button>
+<button class="node n6" onclick="openModule('reports')">REPORTS</button>
+<div class="center">REGISTRATION<br>COMMITTEE</div></div></div></div></section>
 
 <section id="module" class="screen"><div class="wrap">
 <div class="top"><button class="btn light" onclick="goHome()">← BACK TO ORBIT</button><div id="moduleTitle" class="brand"></div></div>
