@@ -1,0 +1,9 @@
+{
+  "name":"PD Warriors 2027 Digital QR Stubs",
+  "short_name":"PDW 2027",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#fffaf0",
+  "theme_color":"#173f32",
+  "icons":[]
+}
